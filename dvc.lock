@@ -52,3 +52,75 @@ stages:
       hash: md5
       md5: e2bd4b1aa0f464fbdfec469584daf6ab
       size: 56942
+  optimize_model:
+    cmd: uv run python src/models/optimize_model.py
+    deps:
+    - path: data/processed_data/X_train_scaled.csv
+      hash: md5
+      md5: e2bd4b1aa0f464fbdfec469584daf6ab
+      size: 56942
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: f4af67a3212ab00e1efdd89341223f56
+      size: 6473
+    - path: src/models/optimize_model.py
+      hash: md5
+      md5: 52271671b3ea2143a1fb5305fbb555a4
+      size: 840
+    outs:
+    - path: models/model_spec.pkl
+      hash: md5
+      md5: 9bc687b4849542e82f1e54ba4fcc1846
+      size: 200
+  train_model:
+    cmd: uv run python src/models/train_model.py
+    deps:
+    - path: data/processed_data/X_train_scaled.csv
+      hash: md5
+      md5: e2bd4b1aa0f464fbdfec469584daf6ab
+      size: 56942
+    - path: data/processed_data/y_train.csv
+      hash: md5
+      md5: f4af67a3212ab00e1efdd89341223f56
+      size: 6473
+    - path: models/model_spec.pkl
+      hash: md5
+      md5: 9bc687b4849542e82f1e54ba4fcc1846
+      size: 200
+    - path: src/models/train_model.py
+      hash: md5
+      md5: d9697491f36cbe022033ca1ff6515cf4
+      size: 416
+    outs:
+    - path: models/trained_model.pkl
+      hash: md5
+      md5: 60926cd3a8f1ca79da40964bc513963a
+      size: 1039
+  evaluate_model:
+    cmd: uv run python src/models/evaluate_model.py
+    deps:
+    - path: data/processed_data/X_test_scaled.csv
+      hash: md5
+      md5: 86a2ca7887c4e566dcebb8b3e82f11f9
+      size: 227143
+    - path: data/processed_data/y_test.csv
+      hash: md5
+      md5: adf073bca29464cdfad732520f736bde
+      size: 26009
+    - path: models/trained_model.pkl
+      hash: md5
+      md5: 60926cd3a8f1ca79da40964bc513963a
+      size: 1039
+    - path: src/models/evaluate_model.py
+      hash: md5
+      md5: 6c2f6f0e8188f1e719d97161941bf2c2
+      size: 842
+    outs:
+    - path: data/processed_data/predictions.csv
+      hash: md5
+      md5: 78ef7c53f01ca4d88f3eee230e98dc69
+      size: 59188
+    - path: metrics/scores.json
+      hash: md5
+      md5: a2c8315c46c27b3e19d82cadb1ca17b7
+      size: 89
