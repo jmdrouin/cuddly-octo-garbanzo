@@ -1,5 +1,5 @@
 /venv
 /clean_data.csv
-/data/*
+/data/*.csv
 /models/*
 /models
